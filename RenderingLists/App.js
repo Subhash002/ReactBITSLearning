@@ -42,3 +42,32 @@ export default function RecipeList() {
     </div>
   );
 }
+
+// Alternate
+import { recipes } from './data.js';
+
+const Recipe=(props)=>{
+  const { id, name, ingredients }=props.data;
+  return (
+        <div key={id}>
+          <h2>{name}</h2>
+          <ul>
+            {ingredients.map(ingredient =>
+              <li key={ingredient}>
+                {ingredient}
+              </li>
+            )}
+          </ul>
+        </div>
+  )
+            }
+  export default function RecipeList() {
+  return (
+    <div>
+      <h1>Recipes</h1>
+      {recipes.map(recipe =>
+        <Recipe data={recipe} key={recipe.id} />
+      )}
+    </div>
+  );
+}
