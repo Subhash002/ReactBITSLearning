@@ -1,0 +1,34 @@
+import React, { useEffect, useState } from "react";
+import AddContact from "./AddContact";
+
+import contact from "./Contact";
+
+import ContactList from "./ContactList";
+import Header from "./Header";
+import InputExampleIconElement from "./SearchBar";
+
+function App() {
+  const LOCAL_STORAGE_KEY = "contacs";
+  const [contacts, setContacts] = useState(contact);
+  const addContactHandler = (contact) => {
+    console.log(contact);
+    setContacts([...contacts, contact]);
+  };
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+  }, [contacts]);
+  useEffect(() => {
+    const retriveData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (retriveData) setContacts(retriveData);
+  }, []);
+  return (
+    <div className="ui container">
+      <Header />
+      <InputExampleIconElement />
+      <AddContact addContactHandler={addContactHandler} />
+      <ContactList contactlist={contacts} />
+    </div>
+  );
+}
+
+export default App;
